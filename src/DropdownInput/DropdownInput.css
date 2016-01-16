@@ -1,0 +1,52 @@
+//
+// Vars/Config
+//
+
+// Style attributes
+$border = 1px solid #EEEEEE
+$font-size = 13px
+$bg-color = #FFFFFF
+$active-bg-color = #EEEEEE
+$focus-outline-color = #3B99FC
+
+// Dimensions
+$input-width = 100px
+$input-height = $font-size
+$option-container-offset = 7px
+//optional max-height for option list?
+//scroll for option list if maxheight used
+
+//
+// Component styles
+//
+  
+.container
+  width $input-width
+  height $input-height
+  position relative
+
+.optionsContainer
+  cursor pointer
+  position absolute
+  width $input-width
+  border $border
+  &.bottom
+    top $input-height + $option-container-offset
+  &.top
+    bottom $input-height + $option-container-offset
+
+.input, .optionsContainer
+  border $border
+
+.option
+  &:active, &:hover
+    background-color $active-bg-color
+
+.input, .option
+  width 100%
+  height 100%
+  border-width 1px
+  background-color $bg-color
+  &:focus
+    outline-color  $focus-outline-color
+  
