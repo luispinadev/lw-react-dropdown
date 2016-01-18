@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "lightweight react dropdown with input",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luispinadev/lw-react-dropdown.git"
+  },
   "scripts": {
     "lint": "eslint ./src --ext .js",
     "test": "node ./node_modules/karma/bin/karma start",
