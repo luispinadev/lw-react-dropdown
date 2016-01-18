@@ -1,17 +1,11 @@
 # README #
 
-This example is a playground for a dropdownInput component, a module in the making. This component aims to provide a dropdown/input that is independent from bootstrap and does not pollute the global dom.
-**!! check folder /src/app/views/components/ for component source!!**
-
-Uses a boilerplate webpack+node+react-router setup, with babel and stylus loaders for css
-.. sorry for the mess, this playground is a cowboy dev env, and I haven't set up the test stack as well.
+This is a self contained react dropdown/input component.
+It does not use bootstrap and is self contained.
 
 ### How do I get set up? ###
 
-* npm install
-* live reload: use 'node server.js'. This will run the webpack dev server with hot reloading @ localhost:8080 ( alternative: you can check out the script entry in package.json and trigger one of the scripts with npm [script name]
-* static build bundle.js: use 'webpack'
-
+- @ dev stage 
 
 ### Usage ###
 
