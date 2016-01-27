@@ -2,14 +2,33 @@
 
 This is a light weight react dropdown/input component.
 It does not use bootstrap's dropdown and is self contained.
-The options
+A small css file (lib/styles.css or src/DropdownInput/DropdownInput.styl) is included as example accompanying styles.
 
 
 ### How do I get set up? ###
 
-- npm i --save lw-react-dropdown
+use 'npm i --save lw-react-dropdown' to install module
 
 ### Usage ###
+Example react component using lw-react-dropdown:
+
+```js
+
+import React from "react"
+import DropdownInput from "lw-react-dropdown"
+
+import "./styles/DropdownInput.styl" // css
+
+const ExampleContainer = () => (
+  <div>
+    <h1>Dropdown input example </h1>
+    <DropdownInput options={ ["option 1","option 2","pop","poppity"] }/>
+  </div>
+)
+
+export default ExampleContainer
+
+```
 
 Current component options (pass as props):
 
@@ -21,10 +40,10 @@ Current component options (pass as props):
 * **selectCallback**: function to be triggered when user selects an option. Default prints a message to console
 * **inputChangeCallback**: default false
 * **debounceMillisecs**: debounce time for the input callback function (if set)
+* **classNames**: object containing css class names for each component.
 
-future options:
-* **css animations**: add css animations for smooth dropdown collapse/expand
-* **options position**: add extra options 'left', 'right', 'auto'(based on distance to window edge?)
+### ToDo ###
+- use component composition for options instead of array of strings so custom markup can be used in options list
+- create proppers example folder
+- better example cases in readme
 
-ToDo:
-* add test cases
