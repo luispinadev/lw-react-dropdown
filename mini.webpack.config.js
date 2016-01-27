@@ -11,7 +11,7 @@ module.exports = {
   module: {
     loaders: [
       { exclude: /node_modules/, test: /\.js$/, loader: 'babel' },
-      { test: /\.css$/, loader: 'style-loader!css-loader!stylus-loader' }
+      { test: /\.styl$/, loader: 'style!css!stylus' }
     ]
 
   },

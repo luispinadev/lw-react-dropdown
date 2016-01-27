@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from "react"
-import styles from "./DropdownInput.css"
 import debounce from "debounce"
 
 class DropdownInput extends Component {
@@ -12,6 +11,7 @@ class DropdownInput extends Component {
     initVal: PropTypes.string,
     debounceMillisecs: PropTypes.number,
     skipBlurTimeout: PropTypes.number,
+    classNames: PropTypes.object,
 
     useFilter: PropTypes.bool,
     filterFunc: PropTypes.func.isRequired,
@@ -22,15 +22,24 @@ class DropdownInput extends Component {
 
     selectCallback: PropTypes.func.isRequired,
     inputChangeCallback: PropTypes.oneOfType([ PropTypes.func, PropTypes.bool ])
-
   };
 
   static defaultProps = {
     initVal: "",
-    
     debounceMillisecs: 300,
     skipBlurTimeout: 1,
-    
+    classNames: {
+      container: "lw-react-dropdown-container",
+      optionsContainer: "lw-react-dropdown-optionsContainer",
+      bottom: "lw-react-dropdown-bottom",
+      top: "lw-react-dropdown-top",
+      input: "lw-react-dropdown-input",
+      optionsContainer: "lw-react-dropdown-optionsContainer",
+      option: "lw-react-dropdown-option",
+      input: "lw-react-dropdown-input",
+      option: "lw-react-dropdown-option"
+    },
+
     useFilter: true,
     filterFunc: (options, val) => (val && val.length > 0) ? options.filter( opt => opt.indexOf(val) > -1) : options,
     
@@ -147,7 +156,7 @@ class DropdownInput extends Component {
   // 
 
   render() {
-    const { options, optionsPosition } = this.props
+    const { classNames, options, optionsPosition } = this.props
     const { val, showOptions } = this.state
     const displayedOptions = this._getOptions()
     const optionsDisplay = showOptions && displayedOptions.length > 0 ? {} : { display: "none" }
@@ -155,11 +164,11 @@ class DropdownInput extends Component {
     return (
       <div
         ref={ r => this.mainContainer = r }
-        className={ styles.container }
+        className={classNames.container}
       >
         <input type="text"
           ref={ r => this.inputComponent = r }
-          className={ styles.input }
+          className={classNames.input}
           value={ val }
           onChange={ e => this._onInputChange(e) }
           onClick={ e => this._showDropdown(e) }
@@ -168,7 +177,7 @@ class DropdownInput extends Component {
         />
         <div
           ref={ r => this.optionsList = r }
-          className={`${styles.optionsContainer} ${styles[optionsPosition]}`}
+          className={`${classNames.optionsContainer} ${classNames[optionsPosition]}`}
           style={ optionsDisplay } 
         >
           { displayedOptions.map( (opt, i) => this._buildOptionElement(opt, i) ) }
@@ -180,7 +189,7 @@ class DropdownInput extends Component {
   _buildOptionElement (option, index){
     return (
     <div key={index}
-      className={ styles.option }
+      className={ this.props.classNames.option }
       tabIndex={index}
       onBlur={ e => this._blurDropdown(e) }
       onMouseDown={ () => this._preventBlur() }

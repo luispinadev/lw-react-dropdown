@@ -1,4 +1,3 @@
-// webpack.config.js
 module.exports = {
 
   entry: './src/index.js',
@@ -18,8 +17,8 @@ module.exports = {
       }
     ],
     loaders: [
-      { exclude: /node_modules/, test: /\.js$/, loader: 'babel' },
-      { test: /\.css$/, loader: 'style!css?modules!stylus' }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.styl$/, loader: 'style!css!stylus' }
     ]
 
   },

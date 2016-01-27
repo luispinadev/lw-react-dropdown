@@ -1,11 +1,13 @@
 # README #
 
-This is a self contained react dropdown/input component.
-It does not use bootstrap and is self contained.
+This is a light weight react dropdown/input component.
+It does not use bootstrap's dropdown and is self contained.
+The options
+
 
 ### How do I get set up? ###
 
-- @ dev stage 
+- npm i --save lw-react-dropdown
 
 ### Usage ###
 

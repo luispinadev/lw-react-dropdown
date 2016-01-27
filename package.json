@@ -1,13 +1,15 @@
 {
   "name": "lw-react-dropdown",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "lightweight react dropdown with input",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luispinadev/lw-react-dropdown.git"
   },
   "scripts": {
+    "compile": " babel -D src --out-dir lib && stylus -I ./node_modules/nib/lib/nib/index.styl src/DropdownInput/DropdownInput.styl --out lib/styles.css",
+    "prepublish": "npm run compile",
     "lint": "eslint ./src --ext .js",
     "test": "node ./node_modules/karma/bin/karma start",
     "build": "webpack --progress --colors",
@@ -26,6 +28,7 @@
     "react": "^0.14.x"
   },
   "devDependencies": {
+    "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
     "babel-eslint": "^4.1.6",
     "babel-loader": "^6.2.1",
