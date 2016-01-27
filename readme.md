@@ -7,7 +7,9 @@ A small css file (lib/styles.css or src/DropdownInput/DropdownInput.styl) is inc
 
 ### How do I get set up? ###
 
-use 'npm i --save lw-react-dropdown' to install module
+Use 'npm i --save lw-react-dropdown' to install module.
+Check package.json's 'scripts' entry for several 'npm run [command]' options.
+'lib/' folder contains code compiled to ES5, 'src/' folder contains original ES6 source.
 
 ### Usage ###
 Example react component using lw-react-dropdown:
@@ -44,6 +46,6 @@ Current component options (pass as props):
 
 ### ToDo ###
 - use component composition for options instead of array of strings so custom markup can be used in options list
-- create proppers example folder
+- create proper example folder
 - better example cases in readme
 

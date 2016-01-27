@@ -2,7 +2,7 @@
   "name": "lw-react-dropdown",
   "version": "0.0.2",
   "description": "lightweight react dropdown with input",
-  "main": "lib/index.js",
+  "main": "lib/DropdownInput/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luispinadev/lw-react-dropdown.git"
