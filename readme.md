@@ -19,7 +19,7 @@ Example react component using lw-react-dropdown:
 import React from "react"
 import DropdownInput from "lw-react-dropdown"
 
-import "./styles/DropdownInput.styl" // css
+import "lw-react-dropdown/styles.css" // example css imported using webpack's loader
 
 const ExampleContainer = () => (
   <div>
