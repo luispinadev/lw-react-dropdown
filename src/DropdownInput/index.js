@@ -34,9 +34,6 @@ class DropdownInput extends Component {
       bottom: "lw-react-dropdown-bottom",
       top: "lw-react-dropdown-top",
       input: "lw-react-dropdown-input",
-      optionsContainer: "lw-react-dropdown-optionsContainer",
-      option: "lw-react-dropdown-option",
-      input: "lw-react-dropdown-input",
       option: "lw-react-dropdown-option"
     },
 
