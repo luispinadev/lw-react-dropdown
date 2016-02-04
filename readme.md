@@ -28,7 +28,7 @@ const ExampleContainer = () => (
 
     <DropdownInput options={ ["option 1","option 2","pop","poppity"] }/>
 
-    <p>Another example, using custom 'decorated markup for options list:</p>
+    <p>Another example, using custom markup for options list render:</p>
 
     <DropdownInput>
       <div val="ananas-data-value" label="ananas">ananas <span>&spades;</span></div>
