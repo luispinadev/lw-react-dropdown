@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react"
+import React, { Children, Component, PropTypes } from "react"
 import debounce from "debounce"
 
 class DropdownInput extends Component {
@@ -18,7 +18,7 @@ class DropdownInput extends Component {
     
     optionsPosition: PropTypes.string,
     optionsLimit: PropTypes.number,
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    options: PropTypes.arrayOf(PropTypes.string),
 
     selectCallback: PropTypes.func.isRequired,
     inputChangeCallback: PropTypes.oneOfType([ PropTypes.func, PropTypes.bool ])
@@ -38,7 +38,7 @@ class DropdownInput extends Component {
     },
 
     useFilter: true,
-    filterFunc: (options, val) => (val && val.length > 0) ? options.filter( opt => opt.indexOf(val) > -1) : options,
+    filterFunc: (opt, val) => (val && val.length > 0) ?  opt.indexOf(val) === 0 : true,
     
     optionsPosition: "bottom",
     optionsLimit: 0, // 0 == show all
@@ -72,7 +72,7 @@ class DropdownInput extends Component {
   
   _onInputChange(e){
     const value = e.target.value
-    this.setState({val: value, showOptions: true}, 
+    this.setState({val: value, showOptions: true},
       () => this.props.inputChangeCallback !== false && 
         this._debInputCallback(this.state.val)
     )
@@ -95,7 +95,7 @@ class DropdownInput extends Component {
 
   _onOptionKeypress(keyCode, val, optIndex){
     const actions = {
-      13: (v, i) => this._onSelectOption(v),  //Enter
+      13: (v) => this._onSelectOption(v),  //Enter
       27: () => this.setState({ showOptions: false }), // Esc
       40: (i) => this._focusNextOption(i), // DownArrow
       38: (i) => this._focusPrevOption(i) // UpArrow
@@ -110,33 +110,24 @@ class DropdownInput extends Component {
   // Display logic
   // 
 
-  _getOptions(){
-    const { useFilter, options, optionsLimit, filterFunc } = this.props
-    const val = this.state.val
-    let retList = useFilter ?
-      filterFunc(options, val) : 
-      options
-    return optionsLimit > 0 ? retList.slice(0, optionsLimit) : retList
-  }
-
-  _showDropdown (e){
+  _showDropdown (){
     if(!this.state.showOptions)
       this.setState({ showOptions: true })
   }
 
-  _blurDropdown (e){
+  _blurDropdown (){
     if(!this._skipBlur && this.state.showOptions)
       this.setState({ showOptions: false })
   }
 
-  _focusNextOption(optionIndex){
+  _focusNextOption(){
     const activeEl = document.activeElement
     if(activeEl.parentNode === this.optionsList)
       activeEl.nextSibling ? activeEl.nextSibling.focus()
         : activeEl.parentElement.firstChild.focus()    
   }
 
-  _focusPrevOption(optionIndex){
+  _focusPrevOption(){
     const activeEl = document.activeElement
     if(activeEl.parentNode === this.optionsList)
       activeEl.previousSibling ? activeEl.previousSibling.focus()
@@ -153,10 +144,10 @@ class DropdownInput extends Component {
   // 
 
   render() {
-    const { classNames, options, optionsPosition } = this.props
+    const { classNames, optionsPosition } = this.props
     const { val, showOptions } = this.state
-    const displayedOptions = this._getOptions()
-    const optionsDisplay = showOptions && displayedOptions.length > 0 ? {} : { display: "none" }
+    
+    const displayedOptions = this._buildOptionsList()
 
     return (
       <div
@@ -175,27 +166,45 @@ class DropdownInput extends Component {
         <div
           ref={ r => this.optionsList = r }
           className={`${classNames.optionsContainer} ${classNames[optionsPosition]}`}
-          style={ optionsDisplay } 
+          style={ showOptions && displayedOptions.length > 0 ? {} : { display: "none" } } 
         >
-          { displayedOptions.map( (opt, i) => this._buildOptionElement(opt, i) ) }
+          { displayedOptions }
         </div>
       </div>
     )
   }
 
-  _buildOptionElement (option, index){
-    return (
-    <div key={index}
-      className={ this.props.classNames.option }
-      tabIndex={index}
-      onBlur={ e => this._blurDropdown(e) }
-      onMouseDown={ () => this._preventBlur() }
-      onClick={ () => this._onSelectOption(option) } 
-      onKeyDown={ e => this._onOptionKeypress(e.keyCode, option, index) }
-    >
-      <span>{option}</span>
-    </div>)
+  _buildOptionsList(){
+    const { children, useFilter, options, optionsLimit, filterFunc } = this.props
+    const currentVal = this.state.val
+    let optionsList
+    const itemProps = (val, i, classNames = "") => ({
+            key: i,
+            tabIndex: i,
+            className:  `${classNames} ${this.props.classNames.option}`,
+            onBlur:  e => this._blurDropdown(e),
+            onMouseDown:  () => this._preventBlur(),
+            onClick:  () => this._onSelectOption(val),
+            onKeyDown:  e => this._onOptionKeypress(e.keyCode, val, i)
+          })
+
+    // build component list with new props
+    Children.count(children) > 0 ?
+      optionsList = 
+        Children.toArray(children)
+                .map( (el, i) => React.cloneElement(
+                  el,
+                  itemProps(el.props.val, i, el.props.className))
+                )
+      :
+      optionsList = options.map( (el, i) => (<div val={el} { ...itemProps(el, i) } >{ el }</div>) )
+
+    //apply filter  
+    if(useFilter) optionsList = optionsList.filter( el => filterFunc(el.props.val, currentVal) )
+
+    return optionsLimit > 0 ? optionsList.slice(0, optionsLimit) : optionsList
   }
+
 }
 
 export default DropdownInput
