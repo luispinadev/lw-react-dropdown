@@ -8,8 +8,10 @@ A small css file (lib/styles.css or src/DropdownInput/DropdownInput.styl) is inc
 ### How do I get set up? ###
 
 Use 'npm i --save lw-react-dropdown' to install.
+
 'lib/' folder contains code compiled to ES5, 'src/' folder contains original ES6 source.
-You may use 'npm run example' inside module dir to run a local server with the example .Check package.json's 'scripts' entry for other dev related scripts 'npm run [command]'.
+
+You may use 'npm run example' inside module dir to run a local server with the example. Check package.json's 'scripts' entry for other dev related scripts.
 
 ### Usage ###
 
@@ -33,7 +35,7 @@ const ExampleContainer = () => (
     <DropdownInput>
       <div val="ananas-data-value" label="ananas">ananas <span>&spades;</span></div>
       <div val="avocado-data-data" label="avocado">avocado <span>&spades;</span></div>
-      <div val="3" label="banana-data-value">banana <span>&spades;</span></div>
+      <div val="banana" label="banana">banana <span>&spades;</span></div>
     </DropdownInput>
   </div>
 )
@@ -53,7 +55,8 @@ Current component options (pass as props):
 * **inputChangeCallback**: default false
 * **debounceMillisecs**: debounce time for the input callback function (if set)
 * **classNames**: object containing css class names for each part of the component.
--> default classNames prop, matching theprovided styles file:
+
+-> Default classNames prop, matching theprovided styles file:
 ```js
 classNames: {
   container: "lw-react-dropdown-container",
