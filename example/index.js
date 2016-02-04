@@ -15,9 +15,9 @@ render(
     <DropdownInput options={ ["option 1","option 2","pop","poppity"] }/>
     <p>Example using child components as options</p>
     <DropdownInput>
-      <div val="1" label="ananas">ananas <span>&spades;</span></div>
-      <div val="2" label="avocado">avocado <span>&spades;</span></div>
-      <div val="3" label="banana">banana <span>&spades;</span></div>
+      <div val="ananas-data-value" label="ananas">ananas <span>&spades;</span></div>
+      <div val="avocado-data-data" label="avocado">avocado <span>&spades;</span></div>
+      <div val="banana-data-value" label="banana">banana <span>&spades;</span></div>
     </DropdownInput>
   </div>,
   document.getElementById("root")

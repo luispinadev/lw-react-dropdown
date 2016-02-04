@@ -7,11 +7,12 @@ A small css file (lib/styles.css or src/DropdownInput/DropdownInput.styl) is inc
 
 ### How do I get set up? ###
 
-Use 'npm i --save lw-react-dropdown' to install module.
-Check package.json's 'scripts' entry for several 'npm run [command]' options.
+Use 'npm i --save lw-react-dropdown' to install.
 'lib/' folder contains code compiled to ES5, 'src/' folder contains original ES6 source.
+You may use 'npm run example' inside module dir to run a local server with the example .Check package.json's 'scripts' entry for other dev related scripts 'npm run [command]'.
 
 ### Usage ###
+
 Example react component using lw-react-dropdown:
 
 ```js
@@ -23,8 +24,17 @@ import "lw-react-dropdown/styles.css" // example css imported using webpack's lo
 
 const ExampleContainer = () => (
   <div>
-    <h1>Dropdown input example </h1>
+    <p>Dropdown input example </p>
+
     <DropdownInput options={ ["option 1","option 2","pop","poppity"] }/>
+
+    <p>Another example, using custom 'decorated markup for options list:</p>
+
+    <DropdownInput>
+      <div val="ananas-data-value" label="ananas">ananas <span>&spades;</span></div>
+      <div val="avocado-data-data" label="avocado">avocado <span>&spades;</span></div>
+      <div val="3" label="banana-data-value">banana <span>&spades;</span></div>
+    </DropdownInput>
   </div>
 )
 
@@ -38,14 +48,28 @@ Current component options (pass as props):
 * **filterOptions**: wether to filter options based on input field value
 * **filterFunc** optional - default checks if val is part of option
 * **optionsPosition**: position of the options dropdown list. 'bottom' and 'top' are supported
-* **options**: list of options for the dropdown list
+* **options**: list of options for the dropdown list (this is ignored if you pass the options as a child component)
 * **selectCallback**: function to be triggered when user selects an option. Default prints a message to console
 * **inputChangeCallback**: default false
 * **debounceMillisecs**: debounce time for the input callback function (if set)
-* **classNames**: object containing css class names for each component.
+* **classNames**: object containing css class names for each part of the component.
+-> default classNames prop, matching theprovided styles file:
+```js
+classNames: {
+  container: "lw-react-dropdown-container",
+  optionsContainer: "lw-react-dropdown-optionsContainer",
+  bottom: "lw-react-dropdown-bottom",
+  top: "lw-react-dropdown-top",
+  input: "lw-react-dropdown-input",
+  option: "lw-react-dropdown-option"
+}
+```
+
+If you prefer to use custom markup or different option values and label, you can pass the options list as a child component (like in the second instance in the example). The child components msut pass have 'label' and 'val' props. The label is used as argument in the filter function (filterFunc), val is used as argument for selectCallback.
 
 ### ToDo ###
-- use component composition for options instead of array of strings so custom markup can be used in options list
-- create proper example folder
-- better example cases in readme
+
+- add some more test cases
+- cleaner css class names interface
+- doc
 

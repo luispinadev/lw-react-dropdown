@@ -80,7 +80,7 @@ class DropdownInput extends Component {
 
   _onInputKeyPress(keyCode, val){ // add cases for arrow nav, enter and esc
     const actions = {
-      13: v => this._onSelectOption(v, v),  // Enter
+      13: () => this._onSelectOption(val, val),  // Enter
       27: () => this.setState({ showOptions: false }), // Esc
       40: () => this.setState(
           { showOptions: true },
@@ -89,20 +89,20 @@ class DropdownInput extends Component {
       }
     if(actions.hasOwnProperty(keyCode)){
       this._preventBlur()
-      actions[keyCode](val)
+      actions[keyCode]()
     }
   }
 
   _onOptionKeypress(keyCode, val, label, optIndex){
     const actions = {
-      13: (v) => this._onSelectOption(v, label),  //Enter
+      13: () => this._onSelectOption(val, label),  //Enter
       27: () => this.setState({ showOptions: false }), // Esc
-      40: (i) => this._focusNextOption(i), // DownArrow
-      38: (i) => this._focusPrevOption(i) // UpArrow
+      40: () => this._focusNextOption(optIndex), // DownArrow
+      38: () => this._focusPrevOption(optIndex) // UpArrow
     }
     if(actions.hasOwnProperty(keyCode)){
       this._preventBlur()
-      actions[keyCode](val, optIndex)
+      actions[keyCode]()
     }
   }
 
@@ -185,7 +185,7 @@ class DropdownInput extends Component {
             className:  `${classNames} ${this.props.classNames.option}`,
             onBlur:  e => this._blurDropdown(e),
             onMouseDown:  () => this._preventBlur(),
-            onClick:  () => this._onSelectOption(val),
+            onClick:  () => this._onSelectOption(val, label),
             onKeyDown:  e => this._onOptionKeypress(e.keyCode, val, label, i)
           })
 
