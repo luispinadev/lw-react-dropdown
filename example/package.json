@@ -1,0 +1,17 @@
+{
+  "name": "lw-react-dropdown-example",
+  "version": "0.0.0",
+  "description": "example usage of lw-react-dropdown component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "luispinadev",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^1.12.12",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-hot-middleware": "^2.6.4"
+  }
+}

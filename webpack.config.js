@@ -1,9 +1,15 @@
+var webpack = require('webpack')
 module.exports = {
 
-  entry: './src/index.js',
+  entry: [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    './example/index.js'
+  ],
 
   output: {
-    filename: './build/bundle.js'       
+    path: require("path").resolve("./build/"),
+    filename: 'bundle.js',
+    publicPath: '/public/'
   },
 
   devtool: '#inline-source-map',
@@ -19,9 +25,15 @@ module.exports = {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
       { test: /\.styl$/, loader: 'style!css!stylus' }
-    ]
+    ],
 
   },
+
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
 
   resolve: {
     extensions: ['', '.js', '.json']
