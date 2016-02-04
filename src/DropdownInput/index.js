@@ -64,10 +64,10 @@ class DropdownInput extends Component {
   // Actions
   //
 
-  _onSelectOption(val){
+  _onSelectOption(val, label){
     if(val.length > 0)
       this.props.selectCallback(val)
-    this.setState({ val: val, showOptions: false })
+    this.setState({ val: label, showOptions: false })
   }
   
   _onInputChange(e){
@@ -80,7 +80,7 @@ class DropdownInput extends Component {
 
   _onInputKeyPress(keyCode, val){ // add cases for arrow nav, enter and esc
     const actions = {
-      13: v => this._onSelectOption(v),  // Enter
+      13: v => this._onSelectOption(v, v),  // Enter
       27: () => this.setState({ showOptions: false }), // Esc
       40: () => this.setState(
           { showOptions: true },
@@ -93,9 +93,9 @@ class DropdownInput extends Component {
     }
   }
 
-  _onOptionKeypress(keyCode, val, optIndex){
+  _onOptionKeypress(keyCode, val, label, optIndex){
     const actions = {
-      13: (v) => this._onSelectOption(v),  //Enter
+      13: (v) => this._onSelectOption(v, label),  //Enter
       27: () => this.setState({ showOptions: false }), // Esc
       40: (i) => this._focusNextOption(i), // DownArrow
       38: (i) => this._focusPrevOption(i) // UpArrow
@@ -178,14 +178,15 @@ class DropdownInput extends Component {
     const { children, useFilter, options, optionsLimit, filterFunc } = this.props
     const currentVal = this.state.val
     let optionsList
-    const itemProps = (val, i, classNames = "") => ({
+    const itemProps = (val, i, label, classNames = "") => ({
             key: i,
             tabIndex: i,
+            label: label,
             className:  `${classNames} ${this.props.classNames.option}`,
             onBlur:  e => this._blurDropdown(e),
             onMouseDown:  () => this._preventBlur(),
             onClick:  () => this._onSelectOption(val),
-            onKeyDown:  e => this._onOptionKeypress(e.keyCode, val, i)
+            onKeyDown:  e => this._onOptionKeypress(e.keyCode, val, label, i)
           })
 
     // build component list with new props
@@ -194,13 +195,13 @@ class DropdownInput extends Component {
         Children.toArray(children)
                 .map( (el, i) => React.cloneElement(
                   el,
-                  itemProps(el.props.val, i, el.props.className))
+                  itemProps(el.props.val, i, el.props.label, el.props.className))
                 )
       :
-      optionsList = options.map( (el, i) => (<div val={el} { ...itemProps(el, i) } >{ el }</div>) )
+      optionsList = options.map( (el, i) => (<div val={el} { ...itemProps(el, i, el) } >{ el }</div>) )
 
     //apply filter  
-    if(useFilter) optionsList = optionsList.filter( el => filterFunc(el.props.val, currentVal) )
+    if(useFilter) optionsList = optionsList.filter( el => filterFunc(el.props.label, currentVal) )
 
     return optionsLimit > 0 ? optionsList.slice(0, optionsLimit) : optionsList
   }
