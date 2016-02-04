@@ -13,6 +13,7 @@
     "lint": "eslint ./src --ext .js",
     "test": "node ./node_modules/karma/bin/karma start",
     "build": "webpack --progress --colors",
+    "example": "node example/server.js",
     "minify": "webpack && webpack --progress --config mini.webpack.config.js"
   },
   "keywords": [

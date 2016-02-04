@@ -1,15 +1,18 @@
 var webpack = require('webpack')
-
 module.exports = {
 
   entry: [
-    './src/index.js'
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    './example/index.js'
   ],
 
   output: {
-    path: require("path").resolve("./build/"),
-    filename: 'bundle.js'
+    path: require("path").resolve("./example/build/"),
+    filename: 'bundle.js',
+    publicPath: '/public/'
   },
+
+  devtool: '#inline-source-map',
 
   module: {
     preLoaders: [
@@ -25,6 +28,12 @@ module.exports = {
     ],
 
   },
+
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
 
   resolve: {
     extensions: ['', '.js', '.json']
