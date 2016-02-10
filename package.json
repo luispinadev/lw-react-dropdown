@@ -1,6 +1,6 @@
 {
   "name": "lw-react-dropdown",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "lightweight react dropdown with input",
   "main": "lib/DropdownInput/index.js",
   "repository": {
